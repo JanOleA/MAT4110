@@ -16,6 +16,9 @@ def plot_compression_ratio():
 
     plt.plot([25,k_max], [1,1], "r--", alpha = 0.5, label = "1")
     plt.legend()
+    plt.title("Compression ratios")
+    plt.xlabel("k")
+    plt.ylabel("Compression ratio")
     plt.savefig("images/CRs.pdf")
     plt.show()
 
@@ -28,7 +31,7 @@ def SVD_size(U, S, V):
 
 def rgb2gray(im):
     """ Takes a color Pillow image and returns a 2d grayscale Numpy matrix
-    with values scaled between 0 an 1
+    with values scaled between 0 and 1
     """
     return np.matrix(im.convert("L"))/255
 
@@ -87,7 +90,7 @@ for image, image_name in zip(image_list, image_names):
         plt.imshow(im_compressed, cmap="gray")
         plt.title("Compressed, k = {:d}, CR = {:f}".format(k, CR))
         fn = "images/{:s}-{:04d}.pdf".format(image_name, k)
-        plt.savefig(fn)
+        plt.savefig(fn, dpi = 600)
 
     U, S, V, k = SVD_compress(image, np.min(image.shape))
     plt.figure()
